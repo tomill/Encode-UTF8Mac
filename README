@@ -1,0 +1,25 @@
+NAME
+    Encode::UTF8Mac -
+
+SYNOPSIS
+      use Encode::UTF8Mac;
+
+DESCRIPTION
+    Encode::UTF8Mac is
+
+    http://developer.apple.com/library/mac/#qa/qa2001/qa1173.html
+
+METHODS
+    new
+    foo
+
+SEE ALSO
+    Encode::UTF8Mac
+
+AUTHOR
+    Naoki Tomita <tomita@cpan.org>
+
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
