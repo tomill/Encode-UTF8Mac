@@ -8,3 +8,5 @@ __DATA__
 Naoki Tomita
 tomi-ru
 Encode::UTF8Mac
+OSX
+utf
