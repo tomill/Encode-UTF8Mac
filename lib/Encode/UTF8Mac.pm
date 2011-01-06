@@ -17,7 +17,7 @@ my $decompose = qr/([^\x{2000}-\x{2FFF}\x{F900}-\x{FAFF}\x{2F800}-\x{2FAFF}]*)/;
 
 sub decode($$;$) {
     my ($self, $bytes, $check) = @_;
-    my $unicode = $utf8->decode($bytes, $check);
+    my $unicode = $utf8->decode($bytes, $check || Encode::FB_DEFAULT);
     $unicode =~ s/$decompose/Unicode::Normalize::NFC($1)/eg;
     $unicode;
 }
@@ -27,7 +27,7 @@ sub encode($$;$) {
     return unless defined $unicode;
     $unicode .= '' if ref $unicode;
     $unicode =~ s/$decompose/Unicode::Normalize::NFD($1)/eg;
-    $utf8->encode($unicode, $check);
+    $utf8->encode($unicode, $check || Encode::FB_DEFAULT);
 }
 
 1;
