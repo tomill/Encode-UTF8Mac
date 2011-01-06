@@ -10,24 +10,25 @@ use base qw(Encode::Encoding);
 
 __PACKAGE__->Define(qw(utf-8-mac));
 
-my $utf8 = Encode::find_encoding('utf-8');
-
 # http://developer.apple.com/library/mac/#qa/qa2001/qa1173.html
 my $decompose = qr/([^\x{2000}-\x{2FFF}\x{F900}-\x{FAFF}\x{2F800}-\x{2FAFF}]*)/;
 
+my $utf8 = Encode::find_encoding('utf-8');
+
 sub decode($$;$) {
-    my ($self, $bytes, $check) = @_;
-    my $unicode = $utf8->decode($bytes, $check || Encode::FB_DEFAULT);
-    $unicode =~ s/$decompose/Unicode::Normalize::NFC($1)/eg;
-    $unicode;
+    my ($self, $octets, $check) = @_;
+    return unless defined $octets;
+    my $string = $utf8->decode($octets, $check || Encode::FB_DEFAULT);
+    $string =~ s/$decompose/Unicode::Normalize::NFC($1)/eg;
+    $string;
 }
 
 sub encode($$;$) {
-    my ($self, $unicode, $check) = @_;
-    return unless defined $unicode;
-    $unicode .= '' if ref $unicode;
-    $unicode =~ s/$decompose/Unicode::Normalize::NFD($1)/eg;
-    $utf8->encode($unicode, $check || Encode::FB_DEFAULT);
+    my ($self, $string, $check) = @_;
+    return unless defined $string;
+    $string .= '' if ref $string;
+    $string =~ s/$decompose/Unicode::Normalize::NFD($1)/eg;
+    $utf8->encode($string, $check || Encode::FB_DEFAULT);
 }
 
 1;
@@ -83,12 +84,12 @@ with that rule in mind. This will help when you decode file name on Mac.
 
 =over 4
 
-=item * Encode::decode('utf-8-mac', $bytes)
+=item * Encode::decode('utf-8-mac', $octets)
 
 Decode as utf-8, and normalize form C except special range
 using Unicode::Normalize.
 
-=item * Encode::encode('utf-8-mac', $unicode)
+=item * Encode::encode('utf-8-mac', $string)
 
 Normalize form D except special range using Unicode::Normalize,
 and encode as utf-8.
