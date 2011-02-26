@@ -87,6 +87,8 @@ These exportable functions are alias to Unicode::Normalize::Mac::NFC() / NFD().
 
 L<Unicode::Normalize>
 
+L<Encode::UTF8Mac> - provides "utf-8-mac" encoding.
+
 =head1 AUTHOR
 
 Naoki Tomita E<lt>tomita@cpan.orgE<gt>
