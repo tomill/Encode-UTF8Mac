@@ -1,16 +1,15 @@
 use inc::Module::Install;
 all_from 'lib/Encode/UTF8Mac.pm';
+readme_from;
 
 requires 'Unicode::Normalize';
 
-test_requires 'Test::More' => 0.94; # subtest
+test_requires 'Test::More' => 0.96; # subtest/done_testing
+auto_include_deps;
 
-author_tests 'xt';
+tests_recursive;
 
-readme_from 'lib/Encode/UTF8Mac.pm';
-resources(
-    repository => 'http://github.com/tomi-ru/Encode-UTF8Mac',
-    bugtracker => 'http://github.com/tomi-ru/Encode-UTF8Mac/issues',
-);
+repository 'http://github.com/tomi-ru/Encode-UTF8Mac';
+bugtracker 'http://github.com/tomi-ru/Encode-UTF8Mac/issues';
 
 WriteAll;
