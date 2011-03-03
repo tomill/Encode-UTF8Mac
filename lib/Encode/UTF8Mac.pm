@@ -45,7 +45,7 @@ Encode::UTF8Mac - "utf-8-mac" encoding, a variant utf-8 used by Mac OSX
 
   $filename = Encode::decode('utf-8', $filename);
   # => "poke\x{0301}mon.txt" (NFD é)
-  
+
   $filename = Encode::decode('utf-8-mac', $filename);
   # => "pok\x{00E9}mon.txt" (NFC é)
 
@@ -92,7 +92,7 @@ using Unicode::Normalize.
 Normalize form D except special range using Unicode::Normalize,
 and encode as utf-8.
 
-OSX file system change NFD automatically. So Actually, this is not necessary.
+OSX file system change NFD automatically. So actually, this is not necessary.
 
 =back
 
@@ -103,7 +103,7 @@ OSX file system change NFD automatically. So Actually, this is not necessary.
   use Encode;
   use Encode::Locale;
   
-  # change locale_fs returns "utf-8" to "utf-8-mac"
+  # change locale_fs "utf-8" to "utf-8-mac"
   if ($^O eq 'darwin') {
       require Encode::UTF8Mac;
       $Encode::Locale::ENCODING_LOCALE_FS = 'utf-8-mac';
@@ -117,7 +117,7 @@ If you are using L<Encode::Locale>, you may want to do this.
 
 L<Encode::Locale> - provides usefull "magic" encoding.
 
-L<Unicode::Normalize::Mac> - contains utf-8-mac logic.
+L<Unicode::Normalize::Mac> - contains "utf-8-mac" logic.
 
 =head1 AUTHOR
 

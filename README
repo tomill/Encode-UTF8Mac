@@ -5,54 +5,72 @@ SYNOPSIS
       use Encode;
       use Encode::UTF8Mac;
   
-      my $filename = Encode::encode('utf-8-mac', "\x{3054}\x{FA19}\x{4F53}");
-      # => \xE3\x81\x93\xE3\x82\x99\xEF\xA8\x99\xE4\xBD\x93
-      # note:
-      # Unicode utf-8(hex)    NFD()            MacOS
-      # U+3054  \xE3\x81\x94  U+3053 + U+3099  decompose
-      # U+3053  \xE3\x81\x93  (no-op)
-      # U+3099  \xE3\x82\x99  (no-op)
-      # U+FA19  \xEF\xA8\x99  U+795E           not decompose
-      # U+4F53  \xE4\xBD\x93  (no-op)
-  
+      my ($filename) = <*.txt>;
+
+      $filename = Encode::decode('utf-8', $filename);
+      # => "poke\x{0301}mon.txt" (NFD é)
+
       $filename = Encode::decode('utf-8-mac', $filename);
-      # => \x{3054}\x{FA19}\x{4F53}
+      # => "pok\x{00E9}mon.txt" (NFC é)
 
 DESCRIPTION
-    Encode::UTF8Mac provides a encoding called "utf-8-mac" used in Mac OSX.
+    Encode::UTF8Mac provides a encoding called "utf-8-mac" for Mac OSX.
 
-    On Mac OSX, utf-8 encoding is used and it is normalized form D
-    (characters are decomposed). However, not follow the exact
-    specification.
+    On Mac OSX, utf-8 encoding is used and it is NFD (Normalization Form
+    canonical Decomposition). If you want to get NFC (Normalization Form
+    canonical Composition) character you need to use Unicode::Normalize's
+    "NFC()".
 
-    <http://developer.apple.com/library/mac/#qa/qa2001/qa1173.html>
-
+    However, Mac OSX filesystem does not follow the exact specification.
     Specifically, the following ranges are not decomposed.
 
       U+2000-U+2FFF
       U+F900-U+FAFF
       U+2F800-U+2FAFF
 
-    In iconv (bundled Mac), this encoding can be using as "utf-8-mac".
+    <http://developer.apple.com/library/mac/#qa/qa2001/qa1173.html>
 
-    This module adds "utf-8-mac" encoding for Encode, it encode/decode text
-    with that rule in mind. This will help when you decode file name on Mac.
+    In iconv (bundled Mac), this encoding can be using as "utf-8-mac". This
+    module adds "utf-8-mac" encoding for Encode, it encode/decode text with
+    that rule in mind. This will help when you decode file name on Mac.
+
+    See more specific example:
+    <http://perl-users.jp/articles/advent-calendar/2010/english/24>
 
 ENCODING
     utf-8-mac
 
-        *   Encode::decode('utf-8-mac', $bytes)
+        *   Encode::decode('utf-8-mac', $octets)
 
             Decode as utf-8, and normalize form C except special range using
             Unicode::Normalize.
 
-        *   Encode::encode('utf-8-mac', $unicode)
+        *   Encode::encode('utf-8-mac', $string)
 
             Normalize form D except special range using Unicode::Normalize,
             and encode as utf-8.
 
+            OSX file system change NFD automatically. So actually, this is
+            not necessary.
+
+COOKBOOK
+      use Encode;
+      use Encode::Locale;
+  
+      # change locale_fs "utf-8" to "utf-8-mac"
+      if ($^O eq 'darwin') {
+          require Encode::UTF8Mac;
+          $Encode::Locale::ENCODING_LOCALE_FS = 'utf-8-mac';
+      }
+  
+      $filename = Encode::decode('locale_fs', $filename);
+
+    If you are using Encode::Locale, you may want to do this.
+
 SEE ALSO
-    Encode, Encode::Locale, Unicode::Normalize
+    Encode::Locale - provides usefull "magic" encoding.
+
+    Unicode::Normalize::Mac - contains "utf-8-mac" logic.
 
 AUTHOR
     Naoki Tomita <tomita@cpan.org>
