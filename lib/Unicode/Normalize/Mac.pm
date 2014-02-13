@@ -10,14 +10,14 @@ my $decompose = qr/([^\x{2000}-\x{2FFF}\x{F900}-\x{FAFF}\x{2F800}-\x{2FAFF}]*)/;
 
 sub NFC_mac {
     my ($unicode) = @_;
-    return unless $unicode;
+    return unless defined $unicode;
     $unicode =~ s/$decompose/Unicode::Normalize::NFC($1)/eg;
     $unicode;
 }
 
 sub NFD_mac {
     my ($unicode) = @_;
-    return unless $unicode;
+    return unless defined $unicode;
     $unicode =~ s/$decompose/Unicode::Normalize::NFD($1)/eg;
     $unicode;
 }
