@@ -1,5 +1,7 @@
 Revision history for Perl extension Encode::UTF8Mac
 
+{{$NEXT}}
+
 0.03  Fri Mar  4 00:25:56 JST 2011
         - add Unicode::Normalize::Mac (separate normalization logic from encoding).
         - update POD
