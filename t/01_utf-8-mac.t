@@ -51,4 +51,4 @@ for my $code (
     );
 }
 
-done_testing;
+done_testing();

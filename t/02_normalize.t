@@ -11,7 +11,7 @@ my %map = (
     "\x{3060}" => "\x{305F}\x{3099}", # HIRAGANA LETTER DA
     "\x{FA1B}" => "\x{FA1B}",         # Chinese Kanji FUKU(lucky) / NFD() => U+798F
     "0"        => "0",                # 0
-    ""         => "",                 # zero-length value
+    ""         => "",                 # empty string
 );
 
 while (my ($c, $d) = each %map) {
@@ -19,7 +19,7 @@ while (my ($c, $d) = each %map) {
     is(Unicode::Normalize::Mac::NFC($d), $c, "($c)");
 }
 
-subtest 'export' => sub {
+subtest 'export functions' => sub {
     use Unicode::Normalize::Mac qw/NFD_mac NFC_mac/;
 
     my $text = NFC_mac("\x{FA1B}\x{2F872}\x{305F}\x{3099}");
@@ -31,4 +31,4 @@ subtest 'export' => sub {
     }
 };
 
-done_testing;
+done_testing();

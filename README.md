@@ -1,6 +1,6 @@
 # NAME
 
-Encode::UTF8Mac - "utf-8-mac" encoding, a variant utf-8 used by Mac OSX
+Encode::UTF8Mac - "utf-8-mac" a variant utf-8 used by OSX filesystem
 
 # SYNOPSIS
 
@@ -8,24 +8,31 @@ Encode::UTF8Mac - "utf-8-mac" encoding, a variant utf-8 used by Mac OSX
     use Encode::UTF8Mac;
     
 
+    # some filename from osx...
     my ($filename) = <*.txt>;
+    
 
+    # it is possible to decode by "utf-8" but...
     $filename = Encode::decode('utf-8', $filename);
     # => "poke\x{0301}mon.txt" (NFD é)
+    #        ^^^^^^^^^ 2 unicode strings: "LATIN SMALL LETTER E" and "COMBINING ACUTE ACCENT"
+    
 
+    # probably you want these unicode strings.
     $filename = Encode::decode('utf-8-mac', $filename);
     # => "pok\x{00E9}mon.txt" (NFC é)
+    #        ^^^^^^^^ single unicode: "LATIN SMALL LETTER E WITH ACUTE"
 
 # DESCRIPTION
 
-Encode::UTF8Mac provides a encoding called "utf-8-mac" for Mac OSX.
+Encode::UTF8Mac provides a encoding named "utf-8-mac".
 
-On Mac OSX, utf-8 encoding is used and it is NFD (Normalization Form
-canonical Decomposition). If you want to get NFC (Normalization Form
+On OSX, utf-8 encoding is used and it is NFD (Normalization Form
+canonical Decomposition) form. If you want to get NFC (Normalization Form
 canonical Composition) character you need to use [Unicode::Normalize](http://search.cpan.org/perldoc?Unicode::Normalize)'s
 `NFC()`.
 
-However, Mac OSX filesystem does not follow the exact specification.
+However, OSX filesystem does not follow the exact specification.
 Specifically, the following ranges are not decomposed.
 
     U+2000-U+2FFF
@@ -34,12 +41,15 @@ Specifically, the following ranges are not decomposed.
 
 [http://developer.apple.com/library/mac/\#qa/qa2001/qa1173.html](http://developer.apple.com/library/mac/\#qa/qa2001/qa1173.html)
 
-In iconv (bundled Mac), this encoding can be using as "utf-8-mac".
-This module adds "utf-8-mac" encoding for [Encode](http://search.cpan.org/perldoc?Encode), it encode/decode text
-with that rule in mind. This will help when you decode file name on Mac.
+iconv (bundled Mac) can use this encoding as "utf-8-mac".
 
-See more specific example:
-[http://perl-users.jp/articles/advent-calendar/2010/english/24](http://perl-users.jp/articles/advent-calendar/2010/english/24)
+This module adds same name "utf-8-mac" encoding for [Encode](http://search.cpan.org/perldoc?Encode),
+it encode/decode text with that rule in mind. This will help
+when you decode file name on Mac.
+
+See more information and Japanese example:
+
+[Encode::UTF8Mac makes you happy while handling file names on MacOSX](http://perl-users.jp/articles/advent-calendar/2010/english/24)
 
 # ENCODING
 
@@ -75,9 +85,9 @@ If you are using [Encode::Locale](http://search.cpan.org/perldoc?Encode::Locale)
 
 # SEE ALSO
 
-[Encode::Locale](http://search.cpan.org/perldoc?Encode::Locale) - provides usefull "magic" encoding.
+[Encode::Locale](http://search.cpan.org/perldoc?Encode::Locale) - provides useful "magic" encoding.
 
-[Unicode::Normalize::Mac](http://search.cpan.org/perldoc?Unicode::Normalize::Mac) - contains "utf-8-mac" logic.
+[Unicode::Normalize::Mac](http://search.cpan.org/perldoc?Unicode::Normalize::Mac) - this module uses it internally.
 
 # AUTHOR
 

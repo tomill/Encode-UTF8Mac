@@ -1,5 +1,5 @@
 {
-   "abstract" : "\"utf-8-mac\" encoding, a variant utf-8 used by Mac OSX",
+   "abstract" : "\"utf-8-mac\" a variant utf-8 used by OSX filesystem",
    "author" : [
       "Naoki Tomita <tomita@cpan.org>"
    ],

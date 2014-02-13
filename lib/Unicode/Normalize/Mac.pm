@@ -33,9 +33,11 @@ __END__
 
 =encoding utf-8
 
+=for stopwords utf-8-mac
+
 =head1 NAME
 
-Unicode::Normalize::Mac - Unicode normalization same way as Mac OSX file system
+Unicode::Normalize::Mac - Unicode normalization same way used in OSX file system
 
 =head1 SYNOPSIS
 
@@ -64,11 +66,11 @@ L<http://developer.apple.com/library/mac/#qa/qa2001/qa1173.html>
 
   my $text = Unicode::Normalize::Mac::NFC($text);
 
-Same as L<Unicode::Normalize>::NFC() / NFD(), but except some characters.
+Same as L<Unicode::Normalize>::NFC() / NFD(), except some characters.
 
 =back
 
-=head1 EXPORT
+=head1 EXPORTS
 
 None by default.
 
@@ -87,7 +89,7 @@ These exportable functions are alias to Unicode::Normalize::Mac::NFC() / NFD().
 
 L<Unicode::Normalize>
 
-L<Encode::UTF8Mac> - provides "utf-8-mac" encoding.
+L<Encode::UTF8Mac> - provides "utf-8-mac" encoding using this module.
 
 =head1 AUTHOR
 
