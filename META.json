@@ -48,8 +48,15 @@
       },
       "runtime" : {
          "requires" : {
+            "Encode" : "0",
+            "Exporter" : "0",
             "Unicode::Normalize" : "0",
             "perl" : "5.008001"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0.98"
          }
       }
    },
