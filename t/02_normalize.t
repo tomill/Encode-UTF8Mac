@@ -10,6 +10,8 @@ my %map = (
     "\x{00E9}" => "\x{0065}\x{0301}", # LATIN SMALL LETTER E WITH ACUTE
     "\x{3060}" => "\x{305F}\x{3099}", # HIRAGANA LETTER DA
     "\x{FA1B}" => "\x{FA1B}",         # Chinese Kanji FUKU(lucky) / NFD() => U+798F
+    "0"        => "0",                # 0
+    ""         => "",                 # zero-length value
 );
 
 while (my ($c, $d) = each %map) {
