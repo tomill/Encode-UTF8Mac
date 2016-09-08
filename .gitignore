@@ -10,3 +10,11 @@ nytprof.out
 MANIFEST.bak
 *~
 *.sw[po]
+/Encode-UTF8Mac-*
+/.build
+/_build_params
+/Build
+/Build.bat
+!Build/
+!META.json
+!LICENSE
